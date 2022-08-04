@@ -1,5 +1,6 @@
 {
   "name": "titan-builder",
+  "homepage": "https://sxxb.github.io/titan-builder/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -42,10 +43,4 @@
       "last 1 safari version"
     ]
   },
-  {
-  "name": "titan-builder",
-  "homepage": "https://sxxb.github.io/titan-builder/", <----
-  "version": "0.1.0",
-  /....
-}
 }
