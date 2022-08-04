@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/titan-builder/static/css/main.801b5660.css",
+    "main.js": "/titan-builder/static/js/main.cf8d8ad5.js",
+    "index.html": "/titan-builder/index.html",
+    "main.801b5660.css.map": "/titan-builder/static/css/main.801b5660.css.map",
+    "main.cf8d8ad5.js.map": "/titan-builder/static/js/main.cf8d8ad5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.801b5660.css",
+    "static/js/main.cf8d8ad5.js"
+  ]
+}
