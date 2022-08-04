@@ -305,7 +305,7 @@ function Stages() {
   const [stage, setStage] = useState(currentStage);
 
   function CheckStage() {
-    if (stage === 0) {
+    if (stage === StageName.Tester) {
        return(
          <Stage
           stageName={StageName.Tester}
@@ -318,7 +318,7 @@ function Stages() {
        )
         // onClick, toggle whether testerId is in the selectedTesterIds array
         // display a border around this if selectedTesterIds.contains(testerId)
-    } else if (stage === 1) {
+    } else if (stage === StageName.Software) {
       return(
         <Stage
           stageName={StageName.Software}
@@ -332,23 +332,23 @@ function Stages() {
       // for (const softwareId in softwareIds) {
       //
       // }
-    } else if (stage === 2) {
+    } else if (stage === StageName.PrintKit) {
       return(
         <Stage
          stageName={StageName.PrintKit}
-         headerTitle={extrasStageText.header}
-         headerSubtitle={extrasStageText.subtitle}
+         headerTitle={printKitStageText.header}
+         headerSubtitle={printKitStageText.subtitle}
          >
          <PrintKitOptions/>
          <Navigation />
         </Stage>
      )
-   } else if (stage === 3) {
+   } else if (stage === StageName.Extras) {
       return(
        <Stage
         stageName={StageName.Extras}
-        headerTitle={printKitStageText.header}
-        headerSubtitle={printKitStageText.subtitle}
+        headerTitle={extrasStageText.header}
+        headerSubtitle={extrasStageText.subtitle}
         >
         <ExtrasOptions/>
         <Navigation />
@@ -360,13 +360,48 @@ function Stages() {
     } else if (stage === undefined) {
       return("Something went wrong - please reload this page.")
     }
+    else {
+      return("Something went wrong - please reload this page.")
+    }
+  };
+
+  // const onStageClick = stage => {
+  //   if (stage <= 0) {
+  //
+  //   }
+  // }
+
+  function GoBack() {
+    if (stage > 0 ) {
+      return(
+        <button
+          className="button-link"
+          onClick={() => setStage(stage - 1)}
+        >
+          Back
+        </button>
+      );
+    }
+  }
+
+  function GoForward() {
+    if (stage < 4 ) {
+      return(
+        <button
+          className="button-link"
+          onClick={() => setStage(stage + 1)}
+        >
+          Next
+        </button>
+      );
+    }
   }
 
   function Navigation() {
     return(
       <div className="builder-navigate">
-      <div className="builder-navigate-forward">
-        <button className="button-link" onClick={() => setStage(stage - 1)}>Back</button>
+      <div className="builder-navigate-backward">
+        <GoBack />
       </div>
         <div>
           <p>
@@ -374,7 +409,7 @@ function Stages() {
           </p>
         </div>
         <div className="builder-navigate-forward">
-          <button className="button-link" onClick={() => setStage(stage + 1)}>Next</button>
+          <GoForward />
         </div>
       </div>
     );
