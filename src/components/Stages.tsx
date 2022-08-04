@@ -280,9 +280,6 @@ function Stage(props) {
   );
 };
 
-
-
-
 // Store what stage we are in.
 // The UI handler should take this stage and determine what to display
 // eg if (stage == 0) { display testerEntities }
@@ -302,98 +299,91 @@ function Stage(props) {
 // }
 //
 
-
-
 //Determine which stage to display
 function Stages() {
   let currentStage: StageName = StageName.Tester;
-
   const [stage, setStage] = useState(currentStage);
 
-
-    function CheckStage() {
-      console.log(stage);
-      console.log(StageName[stage]);
-      console.log(currentStage);
-      if (currentStage === StageName.Tester) {
-         return(
-           <Stage
-            stageName={StageName.Tester}
-            headerTitle={testerStageText.header}
-            headerSubtitle={testerStageText.subtitle}
-          >
-           <TesterOptions/>
-           <Navigation />
-          </Stage>
-         )
-          // onClick, toggle whether testerId is in the selectedTesterIds array
-          // display a border around this if selectedTesterIds.contains(testerId)
-      } else if (currentStage === StageName.Software) {
-        return(
-          <Stage
-            stageName={StageName.Software}
-            headerTitle={softwareStageText.header}
-            headerSubtitle={softwareStageText.subtitle}
-           >
-           <SoftwareOptions/>
-           <Navigation />
-          </Stage>
-        )
-        // for (const softwareId in softwareIds) {
-        //
-        // }
-      } else if (currentStage === StageName.PrintKit) {
-        return(
-          <Stage
-           stageName={StageName.PrintKit}
-           headerTitle={extrasStageText.header}
-           headerSubtitle={extrasStageText.subtitle}
-           >
-           <PrintKitOptions/>
-           <Navigation />
-          </Stage>
-       )
-      } else if (currentStage === StageName.Extras) {
-        return(
+  function CheckStage() {
+    if (stage === 0) {
+       return(
          <Stage
-          stageName={StageName.Extras}
-          headerTitle={printKitStageText.header}
-          headerSubtitle={printKitStageText.subtitle}
-          >
-          <ExtrasOptions/>
-          <Navigation />
-         </Stage>
-        )
-        // for (const extrasId in extrasIds) {
-        //
-        // }
-      } else if (currentStage === undefined) {
-        return("Something went wrong - please reload this page.")
-      }
-    }
-
-    function Navigation() {
+          stageName={StageName.Tester}
+          headerTitle={testerStageText.header}
+          headerSubtitle={testerStageText.subtitle}
+        >
+         <TesterOptions/>
+         <Navigation />
+        </Stage>
+       )
+        // onClick, toggle whether testerId is in the selectedTesterIds array
+        // display a border around this if selectedTesterIds.contains(testerId)
+    } else if (stage === 1) {
       return(
-        <div className="builder-navigate">
-        <div className="builder-navigate-forward">
-          <button className="button-link" onClick={() => setStage(stage - 1)}>Back</button>
-        </div>
-          <div>
-            <p>
-              {stage},
-              {StageName[stage]},
-              {currentStage}
-            </p>
-          </div>
-          <div className="builder-navigate-forward">
-            <button className="button-link" onClick={() => setStage(stage + 1)}>Next</button>
-          </div>
-        </div>
-      );
+        <Stage
+          stageName={StageName.Software}
+          headerTitle={softwareStageText.header}
+          headerSubtitle={softwareStageText.subtitle}
+         >
+         <SoftwareOptions/>
+         <Navigation />
+        </Stage>
+      )
+      // for (const softwareId in softwareIds) {
+      //
+      // }
+    } else if (stage === 2) {
+      return(
+        <Stage
+         stageName={StageName.PrintKit}
+         headerTitle={extrasStageText.header}
+         headerSubtitle={extrasStageText.subtitle}
+         >
+         <PrintKitOptions/>
+         <Navigation />
+        </Stage>
+     )
+   } else if (stage === 3) {
+      return(
+       <Stage
+        stageName={StageName.Extras}
+        headerTitle={printKitStageText.header}
+        headerSubtitle={printKitStageText.subtitle}
+        >
+        <ExtrasOptions/>
+        <Navigation />
+       </Stage>
+      )
+      // for (const extrasId in extrasIds) {
+      //
+      // }
+    } else if (stage === undefined) {
+      return("Something went wrong - please reload this page.")
     }
+  }
+
+  function Navigation() {
+    return(
+      <div className="builder-navigate">
+      <div className="builder-navigate-forward">
+        <button className="button-link" onClick={() => setStage(stage - 1)}>Back</button>
+      </div>
+        <div>
+          <p>
+            {stage}
+          </p>
+        </div>
+        <div className="builder-navigate-forward">
+          <button className="button-link" onClick={() => setStage(stage + 1)}>Next</button>
+        </div>
+      </div>
+    );
+  }
+
+
 
   useEffect(() => {
-    let currentStage: StageName = StageName[stage];
+    console.log(stage);
     return () => {
       <>
       <CheckStage />
@@ -402,12 +392,9 @@ function Stages() {
     }
   });
 
-
-
   return (
     <CheckStage />
-  )
-
+  );
 }
 
 export default Stages;
