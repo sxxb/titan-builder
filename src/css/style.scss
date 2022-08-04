@@ -1,0 +1,171 @@
+$box-shadow-1: 0 5px 10px hsla(226.8, 20%, 30%, 0.5);
+$box-shadow-2: 0 5px 13px 3px hsla(227, 35%, 35%, 0.6);
+$text-shadow: 0 0 0.25em #0008;
+$wavecom-blue: #2e54d9;
+$wavecom-blue-light: #3399ff;
+$wavecom-red: #ff5151;
+
+$tnt-titan-blue: hsla(227, 69%, 52%, 1);
+$tnt-titan-blue-light: hsla(227, 92%, 60%, 1);
+$tnp-prime-red: hsla(356, 85%, 57%, 1);
+$tnp-prime-red-light: hsla(356, 92%, 62%, 1);
+$tnp-3pl-lite-green: hsla(79, 100%, 41%, 1);
+$tnp-3pl-lite-green-light: hsla(79, 100%, 45%, 1);
+$tnp-3pl-orange: hsla(23, 95%, 50%, 1);
+$tnp-3pl-orange-light: hsla(23, 95%, 57%, 1);
+$tnt-rcd-yellow: hsla(48, 100%, 50%, 1);
+$tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
+
+.App {
+  margin-top:0.5rem;
+  width:100%;
+  .builder-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding:0.25rem;
+      .builder-stage {
+        .builder-title {
+          text-align:center;
+          margin-bottom:1rem;
+          h3 {
+            font-size:1rem;
+            margin:0 auto 0.25rem;
+          }
+          p {
+            font-size:0.8rem;
+            font-style:italic;
+            color:var(--bs-gray-600);
+            margin:0;
+          }
+        }
+        .builder-option {
+          display:flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          width:100%;
+          box-shadow: $box-shadow-1;
+          transition:0.2s ease;
+          &:hover {
+            box-shadow: $box-shadow-2;
+          }
+          .builder-option-image {
+            width:100px;
+            img {
+              width:100px;
+              height:100px;
+            }
+          }
+          .builder-option-description {
+            width:calc(100% - 100px);
+            padding: 0.5rem 0.5rem 0.5rem 0;
+            > * {
+              margin:0;
+            }
+            .builder-option-title {
+              font-weight:bold;
+              font-size:1.2rem;
+            }
+            .builder-option-price {
+              font-weight: bold;
+              color:$wavecom-blue;
+            }
+            .builder-option-description {
+              padding-left: 1rem;
+              margin: 0;
+              font-size: 0.8rem;
+              width:100%;
+              li {
+
+              }
+            }
+          }
+        }
+        .builder-text {
+          width: 100%;
+          text-align: center;
+          margin: 0.5rem;
+          span {
+            color:var(--bs-green);
+            font-weight:bold;
+          }
+        }
+    }
+  }
+  .builder-progress {
+    margin-top:1rem;
+    .builder-progress-indicator {
+      progress {
+        width:100%;
+        &[value] {
+
+        }
+        &:not([value]) {
+
+        }
+      }
+    }
+    .builder-progress-stages {
+      display:flex;
+      flex-direction:row;
+      .builder-progress-stage {
+        width:25%;
+        margin:1%;
+        filter:grayscale(100);
+        opacity:0.75;
+        border: 1px solid #fff0;
+        &.complete {
+          filter:grayscale(0);
+          opacity:1;
+          &:hover {
+            border: 1px solid $wavecom-blue;
+            cursor:pointer;
+          }
+        }
+        .builder-progress-container {
+          width:100%;
+
+          padding: 0.5rem 0.25rem;
+          transition:0.2s ease;
+          .builder-progress-image {
+            width:100%;
+            display: flex;
+            img {
+              margin:auto;
+              height:50px;
+              width:50px;
+            }
+          }
+          .builder-progress-label {
+            text-align:center;
+            span {
+              font-size:0.8rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#root {
+  width:100%;
+  margin:auto;
+}
+
+#root {
+  @media only screen and (min-width: 576px) {
+    width: 540px;
+  }
+  @media only screen and (min-width: 768px) {
+    width:720px;
+  }
+  @media only screen and (min-width: 992px) {
+    width:960px;
+  }
+  @media only screen and (min-width: 1200px) {
+    width:1140px;
+  }
+}
