@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from "react";
 
-import Option from '../components/Option'
 import Progress from '../components/Progress'
 
 // @ts-check
@@ -150,6 +149,8 @@ const extrasIds = [printKit.id, printKit.id, printKit.id];
 
 let selectedExtrasIds: string[] = [];
 
+//---------------------------------------------------------------------------
+
 
 // Data type for what stage we are in
 enum StageName {
@@ -182,6 +183,31 @@ const extrasStageText: StageText = {
   header: "Extras",
   subtitle: "Choose any optional extras for your tester",
 };
+
+function BulletPoints({bulletPoints}) {
+  return (
+    <ul className="builder-option-description">
+      {bulletPoints.map(bulletPoint => {
+        return <li key={bulletPoint}>{bulletPoint}</li>;
+      })}
+    </ul>
+  );
+}
+
+function Option(props) {
+  return(
+    <div className={"builder-option " + props.selected} id={props.id} selection={props.selected}>
+      <div className="builder-option-image">
+        <img src={props.imgsrc} alt={props.name} />
+      </div>
+      <div className="builder-option-description">
+        <p className="builder-option-title">{props.name}</p>
+        <p className="builder-option-price">{props.price}</p>
+        <BulletPoints bulletPoints={props.bulletPoints} />
+      </div>
+    </div>
+  );
+}
 
 function TesterOptions() {
     return(
@@ -389,7 +415,7 @@ function Stages() {
     }
   };
 
-  function GoBack() {
+  function GoBackHandler() {
     if (stage > 0 ) {
       return(
         <button
@@ -402,8 +428,32 @@ function Stages() {
     }
   }
 
-  function GoForward() {
-    if (stage < 4 ) {
+  function GoForwardHandler() {
+    if (stage === 0 ) {
+      if (!!selectedTesterIds.length) {
+        return(
+          <button
+            className="button-link"
+            onClick={() => setStage(stage + 1)}
+          >
+            Next
+          </button>
+        );
+      } else {
+        return(
+          <>
+            <p> Please select a tester</p>
+            <button
+              className="button-link inactive"
+              inactive="true"
+            >
+              Next
+            </button>
+          </>
+        );
+      }
+    }
+    else if (stage === 1) {
       return(
         <button
           className="button-link"
@@ -411,8 +461,29 @@ function Stages() {
         >
           Next
         </button>
-      );
-    } else if (stage === 4 ) {
+    );
+    }
+    else if (stage === 2) {
+      return(
+        <button
+          className="button-link"
+          onClick={() => setStage(stage + 1)}
+        >
+          Next
+        </button>
+    );
+    }
+    else if (stage === 3) {
+      return(
+        <button
+          className="button-link"
+          onClick={() => setStage(stage + 1)}
+        >
+          Next
+        </button>
+    );
+    }
+    else if (stage === 4) {
       return(
         <button
           className="button-link"
@@ -422,18 +493,21 @@ function Stages() {
         </button>
       );
     }
+    else {
+      return("Something went wrong - please reload this page");
+    }
   }
 
   function Navigation() {
     return(
       <div className="builder-navigate">
       <div className="builder-navigate-backward">
-        <GoBack />
+        <GoBackHandler />
       </div>
         <div>
         </div>
         <div className="builder-navigate-forward">
-          <GoForward />
+          <GoForwardHandler />
         </div>
       </div>
     );

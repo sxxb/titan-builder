@@ -16,9 +16,53 @@ $tnp-3pl-orange-light: hsla(23, 95%, 57%, 1);
 $tnt-rcd-yellow: hsla(48, 100%, 50%, 1);
 $tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
 
+// placeholders -- remove after addition to wavecom website
+
+#root {
+  @media only screen and (min-width: 576px) {
+    width: 540px;
+  }
+  @media only screen and (min-width: 768px) {
+    width:720px;
+  }
+  @media only screen and (min-width: 992px) {
+    width:960px;
+  }
+  @media only screen and (min-width: 1200px) {
+    width:1140px;
+  }
+}
+
+.button-link {
+  width:100%;
+  max-width: 400px;
+  margin: auto;
+  text-decoration: none;
+  display: flex;
+  border: 0.125rem solid #2e54d9;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  transition: 0.2s ease;
+  background-color:white;
+  color: #2e54d9;
+  text-align:center;
+  cursor:pointer;
+  &:hover {
+    background-color: #2e54d9;
+    color: white;
+    }
+  .fa {
+    margin:0 0.5em;
+  }
+}
+
 *{
   box-sizing:border-box;
 }
+
+//end placeholders
+
 .App {
   margin-top:0.5rem;
   width:100%;
@@ -55,6 +99,7 @@ $tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
               width:100%;
               box-shadow: $box-shadow-1;
               transition:0.2s ease;
+              border:2px solid #fff0;
               &:hover {
                 box-shadow: $box-shadow-2;
               }
@@ -89,6 +134,9 @@ $tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
                   }
                 }
               }
+              &.selected {
+                border:2px solid $wavecom-blue;
+              }
             }
           }
           .builder-navigate {
@@ -99,6 +147,14 @@ $tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
             > div {
               width: calc(100% / 3);
               text-align:center;
+              .inactive {
+                color:grey;
+                border:1px solid grey;
+                &:hover {
+                  background:none;
+                  cursor:not-allowed;
+                }
+              }
             }
           }
           .builder-progress {
@@ -173,44 +229,4 @@ $tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
 #root {
   width:100%;
   margin:auto;
-}
-
-// placeholders -- remove after addition to wavecom website
-
-#root {
-  @media only screen and (min-width: 576px) {
-    width: 540px;
-  }
-  @media only screen and (min-width: 768px) {
-    width:720px;
-  }
-  @media only screen and (min-width: 992px) {
-    width:960px;
-  }
-  @media only screen and (min-width: 1200px) {
-    width:1140px;
-  }
-  .button-link {
-    width:100%;
-    max-width: 400px;
-    margin: auto;
-    text-decoration: none;
-    display: flex;
-    border: 0.125rem solid #2e54d9;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 1rem;
-    transition: 0.2s ease;
-    background-color:white;
-    color: #2e54d9;
-    text-align:center;
-    cursor:pointer;
-    &:hover {
-      background-color: #2e54d9;
-      color: white;
-      }
-    .fa {
-      margin:0 0.5em;
-    }
-  }
 }
