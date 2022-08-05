@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from "react";
 
 import Option from '../components/Option'
+import Progress from '../components/Progress'
 
 // @ts-check
 
@@ -273,7 +274,7 @@ function Stage(props) {
         <h3>{props.headerTitle}</h3>
         <p>{props.headerSubtitle}</p>
       </div>
-      <div className="builder-option-container">
+      <div className="builder-stage-container">
         {props.children}
       </div>
     </div>
@@ -314,6 +315,7 @@ function Stages() {
         >
          <TesterOptions/>
          <Navigation />
+         <Progress stage={stage}/>
         </Stage>
        )
         // onClick, toggle whether testerId is in the selectedTesterIds array
@@ -327,6 +329,7 @@ function Stages() {
          >
          <SoftwareOptions/>
          <Navigation />
+         <Progress stage={stage} />
         </Stage>
       )
       // for (const softwareId in softwareIds) {
@@ -341,6 +344,7 @@ function Stages() {
          >
          <PrintKitOptions/>
          <Navigation />
+         <Progress stage={stage}/>
         </Stage>
      )
    } else if (stage === StageName.Extras) {
@@ -352,11 +356,23 @@ function Stages() {
         >
         <ExtrasOptions/>
         <Navigation />
+        <Progress stage={stage}/>
        </Stage>
       )
       // for (const extrasId in extrasIds) {
       //
       // }
+    } else if (stage === 4) {
+       return(
+        <Stage>
+        <div><h3>Review your order</h3></div>
+         <Navigation />
+         <Progress stage={stage}/>
+        </Stage>
+       )
+       // for (const extrasId in extrasIds) {
+       //
+       // }
     } else if (stage === undefined) {
       return("Something went wrong - please reload this page.")
     }
@@ -364,12 +380,6 @@ function Stages() {
       return("Something went wrong - please reload this page.")
     }
   };
-
-  // const onStageClick = stage => {
-  //   if (stage <= 0) {
-  //
-  //   }
-  // }
 
   function GoBack() {
     if (stage > 0 ) {
@@ -394,6 +404,15 @@ function Stages() {
           Next
         </button>
       );
+    } else if (stage === 4 ) {
+      return(
+        <button
+          className="button-link"
+          onClick={() => console.log("Submit")}
+        >
+          Submit
+        </button>
+      );
     }
   }
 
@@ -415,14 +434,12 @@ function Stages() {
     );
   }
 
-
-
   useEffect(() => {
-    console.log(stage);
     return () => {
       <>
       <CheckStage />
       <Navigation />
+      <Progress />
       </>
     }
   });

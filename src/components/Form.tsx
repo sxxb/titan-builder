@@ -6,9 +6,9 @@ import Stages from '../components/Stages.tsx'
 
 function Form() {
   return(
-    <div className="builder-form">
+    <form className="builder-form">
       <Stages />
-    </div>
+    </form>
   );
 }
 

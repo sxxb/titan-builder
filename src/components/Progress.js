@@ -21,10 +21,10 @@ function ProgressIndicator(props) {
   );
 }
 
-function Progress() {
+function Progress(props) {
   return(
     <div className="builder-progress">
-      <ProgressIndicator progressValue="25"/>
+      <ProgressIndicator progressValue={props.stage * 20 + 20}/>
       <ProgressStages />
 
     </div>
