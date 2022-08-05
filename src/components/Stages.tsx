@@ -269,12 +269,12 @@ function ExtrasOptions() {
 
 function Stage(props) {
   return(
-    <div id={props.stageName} className="builder-stage">
+    <div  className="builder-stage-container">
       <div className="builder-title">
         <h3>{props.headerTitle}</h3>
         <p>{props.headerSubtitle}</p>
       </div>
-      <div className="builder-stage-container">
+      <div id={props.stageName} className="builder-stage">
         {props.children}
       </div>
     </div>
@@ -313,7 +313,9 @@ function Stages() {
           headerTitle={testerStageText.header}
           headerSubtitle={testerStageText.subtitle}
         >
-         <TesterOptions/>
+        <div className="builder-options-container">
+          <TesterOptions/>
+        </div>
          <Navigation />
          <Progress stage={stage}/>
         </Stage>
@@ -327,7 +329,9 @@ function Stages() {
           headerTitle={softwareStageText.header}
           headerSubtitle={softwareStageText.subtitle}
          >
-         <SoftwareOptions/>
+         <div className="builder-options-container">
+          <SoftwareOptions/>
+         </div>
          <Navigation />
          <Progress stage={stage} />
         </Stage>
@@ -338,23 +342,27 @@ function Stages() {
     } else if (stage === StageName.PrintKit) {
       return(
         <Stage
-         stageName={StageName.PrintKit}
-         headerTitle={printKitStageText.header}
-         headerSubtitle={printKitStageText.subtitle}
-         >
-         <PrintKitOptions/>
-         <Navigation />
-         <Progress stage={stage}/>
+          stageName={StageName.PrintKit}
+          headerTitle={printKitStageText.header}
+          headerSubtitle={printKitStageText.subtitle}
+        >
+          <div className="builder-options-container">
+            <PrintKitOptions/>
+          </div>
+          <Navigation />
+          <Progress stage={stage}/>
         </Stage>
      )
-   } else if (stage === StageName.Extras) {
+    } else if (stage === StageName.Extras) {
       return(
        <Stage
         stageName={StageName.Extras}
         headerTitle={extrasStageText.header}
         headerSubtitle={extrasStageText.subtitle}
         >
-        <ExtrasOptions/>
+        <div className="builder-options-container">
+          <ExtrasOptions/>
+        </div>
         <Navigation />
         <Progress stage={stage}/>
        </Stage>
@@ -423,9 +431,6 @@ function Stages() {
         <GoBack />
       </div>
         <div>
-          <p>
-            {stage}
-          </p>
         </div>
         <div className="builder-navigate-forward">
           <GoForward />

@@ -9,6 +9,7 @@ function ProgressStages() {
       <ProgressStage progressStage="stage2" progressStageTitle="Software" progressStageImgSrc="https://www.wavecom.com.au/02_media/splashpages/calibrations/Brands-Calibrations-Splash.png" />
       <ProgressStage progressStage="stage3" progressStageTitle="Printer" progressStageImgSrc="https://www.wavecom.com.au/02_media/splashpages/calibrations/Brands-Calibrations-Splash.png" />
       <ProgressStage progressStage="stage4" progressStageTitle="Extras" progressStageImgSrc="https://www.wavecom.com.au/02_media/splashpages/calibrations/Brands-Calibrations-Splash.png" />
+      <ProgressStage progressStage="stage4" progressStageTitle="Review" progressStageImgSrc="https://www.wavecom.com.au/02_media/splashpages/calibrations/Brands-Calibrations-Splash.png" />
     </div>
   );
 }
@@ -26,7 +27,6 @@ function Progress(props) {
     <div className="builder-progress">
       <ProgressIndicator progressValue={props.stage * 20 + 20}/>
       <ProgressStages />
-
     </div>
   );
 }
