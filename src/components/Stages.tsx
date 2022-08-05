@@ -194,9 +194,20 @@ function BulletPoints({bulletPoints}) {
   );
 }
 
+function selectOption(props) {
+
+}
+
 function Option(props) {
+  const [selection, setSelection] = useState('undefined');
+  console.log(selection);
+
+  //style selected option(s)
+  //ensure selected option is added to array
+  //
+
   return(
-    <div className={"builder-option " + props.selected} id={props.id} selection={props.selected}>
+    <div className={"builder-option"} id={props.id} selection={props.selected} onClick={() => setSelection(props.id)}>
       <div className="builder-option-image">
         <img src={props.imgsrc} alt={props.name} />
       </div>
