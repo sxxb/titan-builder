@@ -151,7 +151,6 @@ let selectedExtrasIds: string[] = [];
 
 //---------------------------------------------------------------------------
 
-
 // Data type for what stage we are in
 enum StageName {
   Tester,
@@ -184,6 +183,8 @@ const extrasStageText: StageText = {
   subtitle: "Choose any optional extras for your tester",
 };
 
+
+// Components to construct the stages
 function BulletPoints({bulletPoints}) {
   return (
     <ul className="builder-option-description">
@@ -194,153 +195,66 @@ function BulletPoints({bulletPoints}) {
   );
 }
 
-function selectOption(props) {
-
-}
-
-function Option(props) {
-  const [selection, setSelection] = useState('undefined');
-  console.log(selection);
-
-  //style selected option(s)
-  //ensure selected option is added to array
-  //
-
-  return(
-    <div className={"builder-option"} id={props.id} selection={props.selected} onClick={() => setSelection(props.id)}>
-      <div className="builder-option-image">
-        <img src={props.imgsrc} alt={props.name} />
+function Option({ optionId, name, imgsrc, price, bulletPoints, handleClick, selected, option }) {
+  if (selected === name) {
+    return(
+      <div className={"builder-option"} id={optionId} onClick={handleClick}>
+        <div className="builder-option-image">
+          <img src={imgsrc} alt={name} />
+        </div>
+        <div className="builder-option-description">
+          <p className="builder-option-title">{name}</p>
+          <p className="builder-option-price">{price}</p>
+          <BulletPoints bulletPoints={bulletPoints} />
+          <h1>Selected!</h1>
+        </div>
       </div>
-      <div className="builder-option-description">
-        <p className="builder-option-title">{props.name}</p>
-        <p className="builder-option-price">{props.price}</p>
-        <BulletPoints bulletPoints={props.bulletPoints} />
+    );
+  } else {
+    return(
+      <div className={"builder-option"} id={optionId} onClick={handleClick}>
+        <div className="builder-option-image">
+          <img src={imgsrc} alt={name} />
+        </div>
+        <div className="builder-option-description">
+          <p className="builder-option-title">{name}</p>
+          <p className="builder-option-price">{price}</p>
+          <BulletPoints bulletPoints={bulletPoints} />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
-function TesterOptions() {
-    return(
-      <>
-        <Option
-         id={tntTitan10A.id}
-         name={tntTitan10A.name}
-         price={tntTitan10A.price}
-         imgsrc={tntTitan10A.imgsrc}
-         bulletPoints={tntTitan10A.bulletPoints}
-        />
-        <Option
-         id={tntTitan20A.id}
-         name={tntTitan20A.name}
-         price={tntTitan20A.price}
-         imgsrc={tntTitan20A.imgsrc}
-         bulletPoints={tntTitan20A.bulletPoints}
-        />
-      </>
-    )
-}
-
-function SoftwareOptions() {
-    return(
-      <>
-        <Option
-         id={winpats.id}
-         name={winpats.name}
-         price={winpats.price}
-         imgsrc={winpats.imgsrc}
-         bulletPoints={winpats.bulletPoints}
-        />
-        <Option
-         id={tablet.id}
-         name={tablet.name}
-         price={tablet.price}
-         imgsrc={tablet.imgsrc}
-         bulletPoints={tablet.bulletPoints}
-        />
-      </>
-    )
-}
-
-function PrintKitOptions() {
-    return(
-      <>
-        <Option
-         id={printKit.id}
-         name={printKit.name}
-         price={printKit.price}
-         imgsrc={printKit.imgsrc}
-         bulletPoints={printKit.bulletPoints}
-        />
-      </>
-    )
-}
-
-function ExtrasOptions() {
-    return(
-      <>
-        <Option
-         id={testAcc.id}
-         name={testAcc.name}
-         price={testAcc.price}
-         imgsrc={testAcc.imgsrc}
-         bulletPoints={testAcc.bulletPoints}
-        />
-        <Option
-         id={basicTags.id}
-         name={basicTags.name}
-         price={basicTags.price}
-         imgsrc={basicTags.imgsrc}
-         bulletPoints={basicTags.bulletPoints}
-        />
-        <Option
-         id={proTags.id}
-         name={proTags.name}
-         price={proTags.price}
-         imgsrc={proTags.imgsrc}
-         bulletPoints={proTags.bulletPoints}
-        />
-      </>
-    )
-}
-
-function Stage(props) {
+function Stage({ headerTitle, headerSubtitle, stageName, children }) {
   return(
     <div  className="builder-stage-container">
       <div className="builder-title">
-        <h3>{props.headerTitle}</h3>
-        <p>{props.headerSubtitle}</p>
+        <h3>{headerTitle}</h3>
+        <p>{headerSubtitle}</p>
       </div>
-      <div id={props.stageName} className="builder-stage">
-        {props.children}
+      <div id={stageName} className="builder-stage">
+        {children}
       </div>
     </div>
   );
 };
 
-// Store what stage we are in.
-// The UI handler should take this stage and determine what to display
-// eg if (stage == 0) { display testerEntities }
-// // Control whether a stage can be changed or not
-// function nextStage() {
-//   if (currentStage === StageName.Tester) {
-//     // If the array of selected testers has a length that is not falsy (positive number)
-//     if (!!selectedTesterIds.length) {
-//       // Move on to the next stage
-//       currentStage = StageName.Software;
-//     } else {
-//       // display error, you need to pick a tester first!
-//       // But also, the UI should have the next button disabled
-//       // until selectedTesterIds has a non zero length.
-//     }
-//   }
-// }
-//
-
 //Determine which stage to display
 function Stages() {
   let currentStage: StageName = StageName.Tester;
   const [stage, setStage] = useState(currentStage);
+
+  const [tester, setTester] = useState(0);
+
+  // const [software, selectSoftware] = useState('');
+  // const [printKit, selectPrintKit] = useState('');
+  // const [extras, selectExtras] = useState('');
+
+  function handleSetTester() {
+    setTester(tester + 1);
+    console.log(tester);
+  };
 
   function CheckStage() {
     if (stage === StageName.Tester) {
@@ -351,7 +265,22 @@ function Stages() {
           headerSubtitle={testerStageText.subtitle}
         >
         <div className="builder-options-container">
-          <TesterOptions/>
+          <Option
+           optionId={tntTitan10A.id}
+           name={tntTitan10A.name}
+           price={tntTitan10A.price}
+           imgsrc={tntTitan10A.imgsrc}
+           bulletPoints={tntTitan10A.bulletPoints}
+           handleClick={handleSetTester}
+          />
+          <Option
+           optionId={tntTitan20A.id}
+           name={tntTitan20A.name}
+           price={tntTitan20A.price}
+           imgsrc={tntTitan20A.imgsrc}
+           bulletPoints={tntTitan20A.bulletPoints}
+           handleClick={handleSetTester}
+          />
         </div>
          <Navigation />
          <Progress stage={stage}/>
@@ -367,7 +296,20 @@ function Stages() {
           headerSubtitle={softwareStageText.subtitle}
          >
          <div className="builder-options-container">
-          <SoftwareOptions/>
+           <Option
+            id={winpats.id}
+            name={winpats.name}
+            price={winpats.price}
+            imgsrc={winpats.imgsrc}
+            bulletPoints={winpats.bulletPoints}
+           />
+           <Option
+            id={tablet.id}
+            name={tablet.name}
+            price={tablet.price}
+            imgsrc={tablet.imgsrc}
+            bulletPoints={tablet.bulletPoints}
+           />
          </div>
          <Navigation />
          <Progress stage={stage} />
@@ -384,7 +326,13 @@ function Stages() {
           headerSubtitle={printKitStageText.subtitle}
         >
           <div className="builder-options-container">
-            <PrintKitOptions/>
+            <Option
+             id={printKit.id}
+             name={printKit.name}
+             price={printKit.price}
+             imgsrc={printKit.imgsrc}
+             bulletPoints={printKit.bulletPoints}
+            />
           </div>
           <Navigation />
           <Progress stage={stage}/>
@@ -398,7 +346,27 @@ function Stages() {
         headerSubtitle={extrasStageText.subtitle}
         >
         <div className="builder-options-container">
-          <ExtrasOptions/>
+          <Option
+           id={testAcc.id}
+           name={testAcc.name}
+           price={testAcc.price}
+           imgsrc={testAcc.imgsrc}
+           bulletPoints={testAcc.bulletPoints}
+          />
+          <Option
+           id={basicTags.id}
+           name={basicTags.name}
+           price={basicTags.price}
+           imgsrc={basicTags.imgsrc}
+           bulletPoints={basicTags.bulletPoints}
+          />
+          <Option
+           id={proTags.id}
+           name={proTags.name}
+           price={proTags.price}
+           imgsrc={proTags.imgsrc}
+           bulletPoints={proTags.bulletPoints}
+          />
         </div>
         <Navigation />
         <Progress stage={stage}/>
@@ -441,7 +409,7 @@ function Stages() {
 
   function GoForwardHandler() {
     if (stage === 0 ) {
-      if (!!selectedTesterIds.length) {
+      if (!!tester.length) {
         return(
           <button
             className="button-link"
