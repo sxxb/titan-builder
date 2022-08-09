@@ -15,14 +15,14 @@ interface TesterEntity {
 }
 
 const tntTitan10A: TesterEntity = {
-  id: "tester-10a",
+  id: "tester-titan-10a",
   bulletPoints: ["list item 1", "list item 2", "list item 3"],
   imgsrc: "/",
   name: "TnT Tital 10A",
   price: 1234,
 };
 const tntTitan20A: TesterEntity = {
-  id: "tester-20a",
+  id: "tester-titan-20a",
   bulletPoints: ["list item 1", "list item 2", "list item 3"],
   imgsrc: "/",
   name: "TnT Tital 20A",
@@ -99,11 +99,11 @@ const printKit: KitEntity = {
   price: 1234,
 };
 
-const kitEntities = {
+const printKitEntities = {
   [printKit.id]: printKit,
 };
 
-const kitIds = [printKit.id];
+const printKitIds = [printKit.id];
 
 let selectedKitIds: string[] = [];
 
@@ -145,7 +145,7 @@ const extrasEntities = {
   [proTags.id]: proTags,
 };
 
-const extrasIds = [printKit.id, printKit.id, printKit.id];
+const extrasIds = [testAcc.id, basicTags.id, proTags.id];
 
 let selectedExtrasIds: string[] = [];
 
@@ -195,9 +195,9 @@ function BulletPoints({bulletPoints}) {
   );
 }
 
-function Option({ optionId, name, imgsrc, price, bulletPoints, handleClick, testerSelected }) {
+function Option({ optionId, name, imgsrc, price, bulletPoints, handleClick, optionSelected }) {
   let className = "builder-option";
-  if (testerSelected) {
+  if (optionSelected) {
     className += ' selected'
   }
   return(
@@ -234,9 +234,13 @@ function Stages() {
   const [stage, setStage] = useState(currentStage);
 
   const [testerSelected, setTesterSelected] = useState('unset');
-  // const [software, selectSoftware] = useState('');
-  // const [printKit, selectPrintKit] = useState('');
-  // const [extras, selectExtras] = useState('');
+  const [winpatsSelected, setWinpatsSelected] = useState('unset');
+  const [tabletSelected, setTabletSelected] = useState('unset');
+  const [printKitSelected, setPrintKitSelected] = useState('unset');
+  const [testAccSelected, setTestAccSelected] = useState('unset');
+  const [basicTagsSelected, setBasicTagsSelected] = useState('unset');
+  const [proTagsSelected, setProTagsSelected] = useState('unset');
+
 
   function CheckStage() {
     if (stage === StageName.Tester) {
@@ -253,8 +257,8 @@ function Stages() {
            price={tntTitan10A.price}
            imgsrc={tntTitan10A.imgsrc}
            bulletPoints={tntTitan10A.bulletPoints}
-           handleClick={() => setTesterSelected(0)}
-           testerSelected={testerSelected === 0}
+           handleClick={() => setTesterSelected(testerIds[0])}
+           optionSelected={testerSelected === testerIds[0]}
           />
           <Option
            optionId={tntTitan20A.id}
@@ -262,13 +266,13 @@ function Stages() {
            price={tntTitan20A.price}
            imgsrc={tntTitan20A.imgsrc}
            bulletPoints={tntTitan20A.bulletPoints}
-           handleClick={() => setTesterSelected(1)}
-           testerSelected={testerSelected === 1}
+           handleClick={() => setTesterSelected(testerIds[1])}
+           optionSelected={testerSelected === testerIds[1]}
           />
-          <p>Value is "{testerSelected}"</p>
+          <p>{testerSelected}</p>
         </div>
          <Navigation />
-         <Progress stage={stage}/>
+         <Progress stage={stage} optionselected={testerSelected}/>
         </Stage>
        )
         // onClick, toggle whether testerId is in the selectedTesterIds array
@@ -287,6 +291,8 @@ function Stages() {
             price={winpats.price}
             imgsrc={winpats.imgsrc}
             bulletPoints={winpats.bulletPoints}
+            handleClick={() => winpatsSelected === softwareIds[0] ? setWinpatsSelected('unset') : setWinpatsSelected(softwareIds[0])}
+            optionSelected={winpatsSelected === softwareIds[0]}
            />
            <Option
             id={tablet.id}
@@ -294,15 +300,15 @@ function Stages() {
             price={tablet.price}
             imgsrc={tablet.imgsrc}
             bulletPoints={tablet.bulletPoints}
+            handleClick={() => tabletSelected === softwareIds[1] ? setTabletSelected('unset') : setTabletSelected(softwareIds[1])}
+            optionSelected={tabletSelected === softwareIds[1]}
            />
          </div>
+         <p>{winpatsSelected},{tabletSelected}</p>
          <Navigation />
-         <Progress stage={stage} />
+         <Progress stage={stage} optionselected={winpatsSelected, tabletSelected} />
         </Stage>
       )
-      // for (const softwareId in softwareIds) {
-      //
-      // }
     } else if (stage === StageName.PrintKit) {
       return(
         <Stage
@@ -317,10 +323,13 @@ function Stages() {
              price={printKit.price}
              imgsrc={printKit.imgsrc}
              bulletPoints={printKit.bulletPoints}
+             handleClick={() => printKitSelected === printKitIds[0] ? setPrintKitSelected('unset') : setPrintKitSelected(printKitIds[0])}
+             optionSelected={printKitSelected === printKitIds[0]}
             />
           </div>
+          <p>{printKitSelected}</p>
           <Navigation />
-          <Progress stage={stage}/>
+          <Progress stage={stage} optionselected={printKitSelected}/>
         </Stage>
      )
     } else if (stage === StageName.Extras) {
@@ -337,21 +346,32 @@ function Stages() {
            price={testAcc.price}
            imgsrc={testAcc.imgsrc}
            bulletPoints={testAcc.bulletPoints}
+           handleClick={() => testAccSelected === extrasIds[0] ? setTestAccSelected('unset') : setTestAccSelected(extrasIds[0])}
+           optionSelected={testAccSelected === extrasIds[0]}
           />
-          <Option
-           id={basicTags.id}
-           name={basicTags.name}
-           price={basicTags.price}
-           imgsrc={basicTags.imgsrc}
-           bulletPoints={basicTags.bulletPoints}
-          />
-          <Option
-           id={proTags.id}
-           name={proTags.name}
-           price={proTags.price}
-           imgsrc={proTags.imgsrc}
-           bulletPoints={proTags.bulletPoints}
-          />
+          {printKitSelected === printKitIds[0] ?
+            (
+              <Option
+               id={proTags.id}
+               name={proTags.name}
+               price={proTags.price}
+               imgsrc={proTags.imgsrc}
+               bulletPoints={proTags.bulletPoints}
+               handleClick={() => proTagsSelected === extrasIds[2] ? setProTagsSelected('unset') : setProTagsSelected(extrasIds[2])}
+               optionSelected={proTagsSelected === extrasIds[2]}
+              />
+            ) : (
+              <Option
+               id={basicTags.id}
+               name={basicTags.name}
+               price={basicTags.price}
+               imgsrc={basicTags.imgsrc}
+               bulletPoints={basicTags.bulletPoints}
+               handleClick={() => basicTagsSelected === extrasIds[1] ? setBasicTagsSelected('unset') : setBasicTagsSelected(extrasIds[1])}
+               optionSelected={basicTagsSelected === extrasIds[1]}
+              />
+            )}
+            <p>{testAccSelected},{basicTagsSelected},{proTagsSelected}</p>
         </div>
         <Navigation />
         <Progress stage={stage}/>
@@ -363,7 +383,21 @@ function Stages() {
     } else if (stage === 4) {
        return(
         <Stage>
-        <div><h3>Review your order</h3></div>
+        <div>
+          <h3>Review your order</h3>
+          <p>
+            <strong>Tester:</strong> {testerSelected}
+          </p>
+          <p>
+            <strong>Software:</strong> {winpatsSelected},{tabletSelected}
+          </p>
+          <p>
+            <strong>Print Kit:</strong> {printKitSelected}
+          </p>
+          <p>
+            <strong>Accessories:</strong> {testAccSelected},{basicTagsSelected},{proTagsSelected}
+          </p>
+        </div>
          <Navigation />
          <Progress stage={stage}/>
         </Stage>

@@ -3,13 +3,14 @@ import React from "react";
 import ProgressStage from '../components/ProgressStage'
 
 function ProgressStages() {
+  //progress styling - use props.stage to set progress styling
   return(
     <div className="builder-progress-stages">
       <ProgressStage progressMilestone="complete" progressStage="stage1" progressStageTitle="Tester" progressStageImgSrc="https://www.wavecom.com.au/02_media/splashpages/calibrations/Brands-Calibrations-Splash.png" />
-      <ProgressStage progressStage="stage2" progressStageTitle="Software" progressStageImgSrc="https://www.wavecom.com.au/02_media/splashpages/calibrations/Brands-Calibrations-Splash.png" />
-      <ProgressStage progressStage="stage3" progressStageTitle="Printer" progressStageImgSrc="https://www.wavecom.com.au/02_media/splashpages/calibrations/Brands-Calibrations-Splash.png" />
-      <ProgressStage progressStage="stage4" progressStageTitle="Extras" progressStageImgSrc="https://www.wavecom.com.au/02_media/splashpages/calibrations/Brands-Calibrations-Splash.png" />
-      <ProgressStage progressStage="stage4" progressStageTitle="Review" progressStageImgSrc="https://www.wavecom.com.au/02_media/splashpages/calibrations/Brands-Calibrations-Splash.png" />
+      <ProgressStage                              progressStage="stage2" progressStageTitle="Software" progressStageImgSrc="https://www.wavecom.com.au/02_media/splashpages/calibrations/Brands-Calibrations-Splash.png" />
+      <ProgressStage                              progressStage="stage3" progressStageTitle="Printer" progressStageImgSrc="https://www.wavecom.com.au/02_media/splashpages/calibrations/Brands-Calibrations-Splash.png" />
+      <ProgressStage                              progressStage="stage4" progressStageTitle="Extras" progressStageImgSrc="https://www.wavecom.com.au/02_media/splashpages/calibrations/Brands-Calibrations-Splash.png" />
+      <ProgressStage                              progressStage="stage4" progressStageTitle="Review" progressStageImgSrc="https://www.wavecom.com.au/02_media/splashpages/calibrations/Brands-Calibrations-Splash.png" />
     </div>
   );
 }
