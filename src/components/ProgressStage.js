@@ -2,7 +2,7 @@ import React from "react";
 
 function ProgressStage(props) {
   return(
-    <div className={"builder-progress-stage " + props.progressMilestone} milestone={props.progressMilestone} id={props.progressStage}>
+    <div onClick={props.handleClick} className={"builder-progress-stage " + props.progressMilestone} id={props.progressStageTitle}>
       <div className="builder-progress-container">
         <div className="builder-progress-image">
           <img src={props.progressStageImgSrc} alt={props.progressStageTitle} />

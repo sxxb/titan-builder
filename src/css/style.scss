@@ -19,6 +19,11 @@ $tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
 // placeholders -- remove after addition to wavecom website
 
 #root {
+  width:100%;
+  margin:auto;
+}
+
+#root {
   @media only screen and (min-width: 576px) {
     width: 540px;
   }
@@ -139,6 +144,9 @@ $tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
               }
             }
           }
+          .builder-options-review {
+            min-height:400px;
+          }
           .builder-navigate {
             display:flex;
             width:100%;
@@ -178,14 +186,15 @@ $tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
                 margin:1%;
                 filter:grayscale(100);
                 opacity:0.75;
-                border: 1px solid #fff0;
+                border: 2px solid #fff0;
+                &.active {
+                  background: rgba($wavecom-blue-light, 0.2);
+                  filter:grayscale(0);
+                  opacity:1;
+                }
                 &.complete {
                   filter:grayscale(0);
                   opacity:1;
-                  &:hover {
-                    border: 1px solid $wavecom-blue;
-                    cursor:pointer;
-                  }
                 }
                 .builder-progress-container {
                   width:100%;
@@ -224,9 +233,4 @@ $tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
     }
   }
 
-}
-
-#root {
-  width:100%;
-  margin:auto;
 }

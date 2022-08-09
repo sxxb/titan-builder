@@ -319,7 +319,7 @@ function Stages() {
              price={printKit.price}
              imgsrc={printKit.imgsrc}
              bulletPoints={printKit.bulletPoints}
-             handleClick={() => printKitSelected === printKit.name ? setPrintKitSelected('unset') : setPrintKitSelected(printKit.name)}
+             handleClick={() => printKitSelected === printKit.name ? (setPrintKitSelected('unset'), setProTagsSelected('unset'))  : (setPrintKitSelected(printKit.name), setBasicTagsSelected('unset'))}
              optionSelected={printKitSelected === printKit.name}
             />
           </div>
@@ -374,9 +374,13 @@ function Stages() {
       )
     } else if (stage === 4) {
        return(
-        <Stage>
-        <div>
-          <h3>Review your order</h3>
+        <Stage
+          stageName={"Review"}
+          headerTitle={"Review your order"}
+          headerSubtitle={"When you are satisfied with your order, click submit to add your selections to your cart. You can then proceed to checkout, or continue shopping."}
+        >
+
+        <div className="builder-options-review">
           <p>
             <strong>Tester:</strong> {testerSelected}
           </p>
@@ -387,7 +391,7 @@ function Stages() {
             <strong>Print Kit:</strong> {printKitSelected}
           </p>
           <p>
-            <strong>Accessories:</strong> {testAccSelected}, {basicTagsSelected}, {proTagsSelected}
+            <strong>Accessories:</strong> {testAccSelected}, {basicTagsSelected},{proTagsSelected}
           </p>
         </div>
          <Navigation />
@@ -491,9 +495,9 @@ function Stages() {
   function Navigation() {
     return(
       <div className="builder-navigate">
-      <div className="builder-navigate-backward">
-        <GoBackHandler />
-      </div>
+        <div className="builder-navigate-backward">
+          <GoBackHandler />
+        </div>
         <div>
         </div>
         <div className="builder-navigate-forward">
