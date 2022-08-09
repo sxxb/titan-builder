@@ -18,14 +18,14 @@ const tntTitan10A: TesterEntity = {
   id: "tester-titan-10a",
   bulletPoints: ["list item 1", "list item 2", "list item 3"],
   imgsrc: "/",
-  name: "TnT Tital 10A",
+  name: "The TnT Titan 10A",
   price: 1234,
 };
 const tntTitan20A: TesterEntity = {
   id: "tester-titan-20a",
   bulletPoints: ["list item 1", "list item 2", "list item 3"],
   imgsrc: "/",
-  name: "TnT Tital 20A",
+  name: "The TnT Titan 20A",
   price: 2345,
 };
 
@@ -257,8 +257,8 @@ function Stages() {
            price={tntTitan10A.price}
            imgsrc={tntTitan10A.imgsrc}
            bulletPoints={tntTitan10A.bulletPoints}
-           handleClick={() => setTesterSelected(testerIds[0])}
-           optionSelected={testerSelected === testerIds[0]}
+           handleClick={() => setTesterSelected(tntTitan10A.name)}
+           optionSelected={testerSelected === tntTitan10A.name}
           />
           <Option
            optionId={tntTitan20A.id}
@@ -266,17 +266,14 @@ function Stages() {
            price={tntTitan20A.price}
            imgsrc={tntTitan20A.imgsrc}
            bulletPoints={tntTitan20A.bulletPoints}
-           handleClick={() => setTesterSelected(testerIds[1])}
-           optionSelected={testerSelected === testerIds[1]}
+           handleClick={() => setTesterSelected(tntTitan20A.name)}
+           optionSelected={testerSelected === tntTitan20A.name}
           />
-          <p>{testerSelected}</p>
         </div>
          <Navigation />
          <Progress stage={stage} optionselected={testerSelected}/>
         </Stage>
        )
-        // onClick, toggle whether testerId is in the selectedTesterIds array
-        // display a border around this if selectedTesterIds.contains(testerId)
     } else if (stage === StageName.Software) {
       return(
         <Stage
@@ -291,8 +288,8 @@ function Stages() {
             price={winpats.price}
             imgsrc={winpats.imgsrc}
             bulletPoints={winpats.bulletPoints}
-            handleClick={() => winpatsSelected === softwareIds[0] ? setWinpatsSelected('unset') : setWinpatsSelected(softwareIds[0])}
-            optionSelected={winpatsSelected === softwareIds[0]}
+            handleClick={() => winpatsSelected === winpats.name ? setWinpatsSelected('unset') : setWinpatsSelected(winpats.name)}
+            optionSelected={winpatsSelected === winpats.name}
            />
            <Option
             id={tablet.id}
@@ -300,11 +297,10 @@ function Stages() {
             price={tablet.price}
             imgsrc={tablet.imgsrc}
             bulletPoints={tablet.bulletPoints}
-            handleClick={() => tabletSelected === softwareIds[1] ? setTabletSelected('unset') : setTabletSelected(softwareIds[1])}
-            optionSelected={tabletSelected === softwareIds[1]}
+            handleClick={() => tabletSelected === tablet.name ? setTabletSelected('unset') : setTabletSelected(tablet.name)}
+            optionSelected={tabletSelected === tablet.name}
            />
          </div>
-         <p>{winpatsSelected},{tabletSelected}</p>
          <Navigation />
          <Progress stage={stage} optionselected={winpatsSelected, tabletSelected} />
         </Stage>
@@ -323,11 +319,10 @@ function Stages() {
              price={printKit.price}
              imgsrc={printKit.imgsrc}
              bulletPoints={printKit.bulletPoints}
-             handleClick={() => printKitSelected === printKitIds[0] ? setPrintKitSelected('unset') : setPrintKitSelected(printKitIds[0])}
-             optionSelected={printKitSelected === printKitIds[0]}
+             handleClick={() => printKitSelected === printKit.name ? setPrintKitSelected('unset') : setPrintKitSelected(printKit.name)}
+             optionSelected={printKitSelected === printKit.name}
             />
           </div>
-          <p>{printKitSelected}</p>
           <Navigation />
           <Progress stage={stage} optionselected={printKitSelected}/>
         </Stage>
@@ -346,10 +341,10 @@ function Stages() {
            price={testAcc.price}
            imgsrc={testAcc.imgsrc}
            bulletPoints={testAcc.bulletPoints}
-           handleClick={() => testAccSelected === extrasIds[0] ? setTestAccSelected('unset') : setTestAccSelected(extrasIds[0])}
-           optionSelected={testAccSelected === extrasIds[0]}
+           handleClick={() => testAccSelected === testAcc.name ? setTestAccSelected('unset') : setTestAccSelected(testAcc.name)}
+           optionSelected={testAccSelected === testAcc.name}
           />
-          {printKitSelected === printKitIds[0] ?
+          {printKitSelected === printKit.name ?
             (
               <Option
                id={proTags.id}
@@ -357,8 +352,8 @@ function Stages() {
                price={proTags.price}
                imgsrc={proTags.imgsrc}
                bulletPoints={proTags.bulletPoints}
-               handleClick={() => proTagsSelected === extrasIds[2] ? setProTagsSelected('unset') : setProTagsSelected(extrasIds[2])}
-               optionSelected={proTagsSelected === extrasIds[2]}
+               handleClick={() => proTagsSelected === proTags.name ? setProTagsSelected('unset') : setProTagsSelected(proTags.name) + setBasicTagsSelected('unset')}
+               optionSelected={proTagsSelected === proTags.name}
               />
             ) : (
               <Option
@@ -367,19 +362,16 @@ function Stages() {
                price={basicTags.price}
                imgsrc={basicTags.imgsrc}
                bulletPoints={basicTags.bulletPoints}
-               handleClick={() => basicTagsSelected === extrasIds[1] ? setBasicTagsSelected('unset') : setBasicTagsSelected(extrasIds[1])}
-               optionSelected={basicTagsSelected === extrasIds[1]}
+               handleClick={() => basicTagsSelected === basicTags.name ? setBasicTagsSelected('unset') : setBasicTagsSelected(basicTags.name) + setProTagsSelected('unset')}
+               optionSelected={basicTagsSelected === basicTags.name}
               />
-            )}
-            <p>{testAccSelected},{basicTagsSelected},{proTagsSelected}</p>
+            )
+          }
         </div>
         <Navigation />
         <Progress stage={stage}/>
        </Stage>
       )
-      // for (const extrasId in extrasIds) {
-      //
-      // }
     } else if (stage === 4) {
        return(
         <Stage>
@@ -389,13 +381,13 @@ function Stages() {
             <strong>Tester:</strong> {testerSelected}
           </p>
           <p>
-            <strong>Software:</strong> {winpatsSelected},{tabletSelected}
+            <strong>Software:</strong> {winpatsSelected}, {tabletSelected}
           </p>
           <p>
             <strong>Print Kit:</strong> {printKitSelected}
           </p>
           <p>
-            <strong>Accessories:</strong> {testAccSelected},{basicTagsSelected},{proTagsSelected}
+            <strong>Accessories:</strong> {testAccSelected}, {basicTagsSelected}, {proTagsSelected}
           </p>
         </div>
          <Navigation />
