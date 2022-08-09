@@ -195,35 +195,23 @@ function BulletPoints({bulletPoints}) {
   );
 }
 
-function Option({ optionId, name, imgsrc, price, bulletPoints, handleClick, selected, option }) {
-  if (selected === name) {
-    return(
-      <div className={"builder-option"} id={optionId} onClick={handleClick}>
-        <div className="builder-option-image">
-          <img src={imgsrc} alt={name} />
-        </div>
-        <div className="builder-option-description">
-          <p className="builder-option-title">{name}</p>
-          <p className="builder-option-price">{price}</p>
-          <BulletPoints bulletPoints={bulletPoints} />
-          <h1>Selected!</h1>
-        </div>
-      </div>
-    );
-  } else {
-    return(
-      <div className={"builder-option"} id={optionId} onClick={handleClick}>
-        <div className="builder-option-image">
-          <img src={imgsrc} alt={name} />
-        </div>
-        <div className="builder-option-description">
-          <p className="builder-option-title">{name}</p>
-          <p className="builder-option-price">{price}</p>
-          <BulletPoints bulletPoints={bulletPoints} />
-        </div>
-      </div>
-    );
+function Option({ optionId, name, imgsrc, price, bulletPoints, handleClick, testerSelected }) {
+  let className = "builder-option";
+  if (testerSelected) {
+    className += ' selected'
   }
+  return(
+    <div className={className} id={optionId} onClick={handleClick}>
+      <div className="builder-option-image">
+        <img src={imgsrc} alt={name} />
+      </div>
+      <div className="builder-option-description">
+        <p className="builder-option-title">{name}</p>
+        <p className="builder-option-price">{price}</p>
+        <BulletPoints bulletPoints={bulletPoints} />
+      </div>
+    </div>
+  );
 }
 
 function Stage({ headerTitle, headerSubtitle, stageName, children }) {
@@ -245,16 +233,10 @@ function Stages() {
   let currentStage: StageName = StageName.Tester;
   const [stage, setStage] = useState(currentStage);
 
-  const [tester, setTester] = useState(0);
-
+  const [testerSelected, setTesterSelected] = useState('unset');
   // const [software, selectSoftware] = useState('');
   // const [printKit, selectPrintKit] = useState('');
   // const [extras, selectExtras] = useState('');
-
-  function handleSetTester() {
-    setTester(tester + 1);
-    console.log(tester);
-  };
 
   function CheckStage() {
     if (stage === StageName.Tester) {
@@ -271,7 +253,8 @@ function Stages() {
            price={tntTitan10A.price}
            imgsrc={tntTitan10A.imgsrc}
            bulletPoints={tntTitan10A.bulletPoints}
-           handleClick={handleSetTester}
+           handleClick={() => setTesterSelected(0)}
+           testerSelected={testerSelected === 0}
           />
           <Option
            optionId={tntTitan20A.id}
@@ -279,8 +262,10 @@ function Stages() {
            price={tntTitan20A.price}
            imgsrc={tntTitan20A.imgsrc}
            bulletPoints={tntTitan20A.bulletPoints}
-           handleClick={handleSetTester}
+           handleClick={() => setTesterSelected(1)}
+           testerSelected={testerSelected === 1}
           />
+          <p>Value is "{testerSelected}"</p>
         </div>
          <Navigation />
          <Progress stage={stage}/>
@@ -409,7 +394,7 @@ function Stages() {
 
   function GoForwardHandler() {
     if (stage === 0 ) {
-      if (!!tester.length) {
+      if (testerSelected !== 'unset') {
         return(
           <button
             className="button-link"
