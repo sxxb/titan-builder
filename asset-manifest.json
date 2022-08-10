@@ -1,13 +1,21 @@
 {
   "files": {
-    "main.css": "/titan-builder/static/css/main.5980b3e3.css",
-    "main.js": "/titan-builder/static/js/main.ad311b12.js",
+    "main.css": "/titan-builder/static/css/main.c47570ec.css",
+    "main.js": "/titan-builder/static/js/main.4ffea1c9.js",
+    "static/media/tablet.png": "/titan-builder/static/media/tablet.f986182e3e862dd60e89.png",
+    "static/media/basicTags.png": "/titan-builder/static/media/basicTags.eaf7d6b4e17b6966b5e5.png",
+    "static/media/tntTitan10A.png": "/titan-builder/static/media/tntTitan10A.3d459e18d1ec2dc710b8.png",
+    "static/media/tntTitan20A.png": "/titan-builder/static/media/tntTitan20A.b537ff80d39d4e241b4d.png",
+    "static/media/proTags.png": "/titan-builder/static/media/proTags.f20bffed74eea6690287.png",
+    "static/media/printKit.png": "/titan-builder/static/media/printKit.1a67aa8adfd5dfaf28df.png",
+    "static/media/testAcc.png": "/titan-builder/static/media/testAcc.07eddccd581fd669bcfb.png",
+    "static/media/winpats.png": "/titan-builder/static/media/winpats.f5c5596169197c0f3895.png",
     "index.html": "/titan-builder/index.html",
-    "main.5980b3e3.css.map": "/titan-builder/static/css/main.5980b3e3.css.map",
-    "main.ad311b12.js.map": "/titan-builder/static/js/main.ad311b12.js.map"
+    "main.c47570ec.css.map": "/titan-builder/static/css/main.c47570ec.css.map",
+    "main.4ffea1c9.js.map": "/titan-builder/static/js/main.4ffea1c9.js.map"
   },
   "entrypoints": [
-    "static/css/main.5980b3e3.css",
-    "static/js/main.ad311b12.js"
+    "static/css/main.c47570ec.css",
+    "static/js/main.4ffea1c9.js"
   ]
 }
