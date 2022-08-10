@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/titan-builder/static/css/main.74442df3.css",
-    "main.js": "/titan-builder/static/js/main.afd6f6d2.js",
+    "main.css": "/titan-builder/static/css/main.5980b3e3.css",
+    "main.js": "/titan-builder/static/js/main.ad311b12.js",
     "index.html": "/titan-builder/index.html",
-    "main.74442df3.css.map": "/titan-builder/static/css/main.74442df3.css.map",
-    "main.afd6f6d2.js.map": "/titan-builder/static/js/main.afd6f6d2.js.map"
+    "main.5980b3e3.css.map": "/titan-builder/static/css/main.5980b3e3.css.map",
+    "main.ad311b12.js.map": "/titan-builder/static/js/main.ad311b12.js.map"
   },
   "entrypoints": [
-    "static/css/main.74442df3.css",
-    "static/js/main.afd6f6d2.js"
+    "static/css/main.5980b3e3.css",
+    "static/js/main.ad311b12.js"
   ]
 }
