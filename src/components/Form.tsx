@@ -11,6 +11,7 @@ function Form() {
   }
   return(
     <form className="builder-form">
+      <h1>Build Your TnT Titan</h1>
       <Stages />
     </form>
   );

@@ -1,8 +1,14 @@
 import React, { useState,useEffect } from "react";
 
-import Progress from '../components/Progress'
-
-// @ts-check
+import Progress from '../components/Progress';
+import tntTitan10AImg from '../img/tntTitan10A.png';
+import tntTitan20AImg from '../img/tntTitan20A.png';
+import winpatsImg from '../img/winpats.png';
+import tabletImg from '../img/tablet.png';
+import printKitImg from '../img/printKit.png';
+import testAccImg from '../img/testAcc.png';
+import basicTagsImg from '../img/basicTags.png';
+import proTagsImg from '../img/proTags.png';
 
 // Type safety
 interface TesterEntity {
@@ -17,14 +23,14 @@ interface TesterEntity {
 const tntTitan10A: TesterEntity = {
   id: "tester-titan-10a",
   bulletPoints: ["list item 1", "list item 2", "list item 3"],
-  imgsrc: "/",
+  imgsrc: tntTitan10AImg,
   name: "The TnT Titan 10A",
   price: 1234,
 };
 const tntTitan20A: TesterEntity = {
   id: "tester-titan-20a",
   bulletPoints: ["list item 1", "list item 2", "list item 3"],
-  imgsrc: "/",
+  imgsrc: tntTitan20AImg,
   name: "The TnT Titan 20A",
   price: 2345,
 };
@@ -60,14 +66,14 @@ interface SoftwareEntity {
 const winpats: SoftwareEntity = {
   id: "software-winpats",
   bulletPoints: ["list item 1", "list item 2", "list item 3"],
-  imgsrc: "/",
+  imgsrc: winpatsImg,
   name: "WinPATS",
   price: 1234,
 };
 const tablet: SoftwareEntity = {
   id: "software-tablet",
   bulletPoints: ["list item 1", "list item 2", "list item 3"],
-  imgsrc: "/",
+  imgsrc: tabletImg,
   name: "Android Tablet",
   price: 1234,
 };
@@ -94,7 +100,7 @@ interface KitEntity {
 const printKit: KitEntity = {
   id: "printer-kit",
   bulletPoints: ["list item 1", "list item 2", "list item 3"],
-  imgsrc: "/",
+  imgsrc: printKitImg,
   name: "Tag Printing Kit",
   price: 1234,
 };
@@ -120,21 +126,21 @@ interface ExtrasEntity {
 const testAcc: ExtrasEntity = {
   id: "extras-accessories",
   bulletPoints: ["list item 1", "list item 2", "list item 3"],
-  imgsrc: "/",
+  imgsrc: testAccImg,
   name: "Testing Accessories Pack",
   price: 1234,
 };
 const basicTags: ExtrasEntity = {
   id: "extras-basic-tags",
   bulletPoints: ["list item 1", "list item 2", "list item 3"],
-  imgsrc: "/",
+  imgsrc: basicTagsImg,
   name: "Getting Started Tag Pack",
   price: 1234,
 };
 const proTags: ExtrasEntity = {
   id: "extras-pro-tags",
   bulletPoints: ["list item 1", "list item 2", "list item 3"],
-  imgsrc: "/",
+  imgsrc: proTagsImg,
   name: "Professional Printable Tag Pack",
   price: 1234,
 };
@@ -183,11 +189,10 @@ const extrasStageText: StageText = {
   subtitle: "Choose any optional extras for your tester",
 };
 
-
 // Components to construct the stages
 function BulletPoints({bulletPoints}) {
   return (
-    <ul className="builder-option-description">
+    <ul className="builder-option-list">
       {bulletPoints.map(bulletPoint => {
         return <li key={bulletPoint}>{bulletPoint}</li>;
       })}
@@ -201,13 +206,13 @@ function Option({ optionId, name, imgsrc, price, bulletPoints, handleClick, opti
     className += ' selected'
   }
   return(
-    <div className={className} id={optionId} onClick={handleClick}>
+    <div className={className} onClick={handleClick}>
       <div className="builder-option-image">
         <img src={imgsrc} alt={name} />
       </div>
       <div className="builder-option-description">
         <p className="builder-option-title">{name}</p>
-        <p className="builder-option-price">{price}</p>
+        <p className="builder-option-price">${price}<sup>+GST</sup></p>
         <BulletPoints bulletPoints={bulletPoints} />
       </div>
     </div>
@@ -230,9 +235,14 @@ function Stage({ headerTitle, headerSubtitle, stageName, children }) {
 
 //Determine which stage to display
 function Stages() {
+  //Set the default stage
   let currentStage: StageName = StageName.Tester;
+  //Hook for updating the stages
   const [stage, setStage] = useState(currentStage);
 
+  //Hooks for updating product selections.
+  //Note that some selections are X OR Y (testers),
+  // while others are X AND/OR Y (accessories and tags).
   const [testerSelected, setTesterSelected] = useState('unset');
   const [winpatsSelected, setWinpatsSelected] = useState('unset');
   const [tabletSelected, setTabletSelected] = useState('unset');
@@ -241,7 +251,7 @@ function Stages() {
   const [basicTagsSelected, setBasicTagsSelected] = useState('unset');
   const [proTagsSelected, setProTagsSelected] = useState('unset');
 
-
+  //Set which stage to display based on 'stage' counter - see the hook above.
   function CheckStage() {
     if (stage === StageName.Tester) {
        return(
@@ -271,7 +281,7 @@ function Stages() {
           />
         </div>
          <Navigation />
-         <Progress stage={stage} optionselected={testerSelected}/>
+         <Progress stage={stage}/>
         </Stage>
        )
     } else if (stage === StageName.Software) {
@@ -302,7 +312,7 @@ function Stages() {
            />
          </div>
          <Navigation />
-         <Progress stage={stage} optionselected={winpatsSelected, tabletSelected} />
+         <Progress stage={stage}/>
         </Stage>
       )
     } else if (stage === StageName.PrintKit) {
@@ -324,7 +334,7 @@ function Stages() {
             />
           </div>
           <Navigation />
-          <Progress stage={stage} optionselected={printKitSelected}/>
+          <Progress stage={stage}/>
         </Stage>
      )
     } else if (stage === StageName.Extras) {
@@ -409,6 +419,9 @@ function Stages() {
     }
   };
 
+  //Handle navigation. GoBack is straightforward - it returns you to the
+  //previous stage. GoForward sometimes requires a selection to be made before
+  //proceeding, but works the same way (decrementing/incrementing 'stage')
   function GoBackHandler() {
     if (stage > 0 ) {
       return(
@@ -421,7 +434,6 @@ function Stages() {
       );
     }
   }
-
   function GoForwardHandler() {
     if (stage === 0 ) {
       if (testerSelected !== 'unset') {
@@ -492,6 +504,7 @@ function Stages() {
     }
   }
 
+  //Component build for navigation
   function Navigation() {
     return(
       <div className="builder-navigate">
@@ -507,6 +520,7 @@ function Stages() {
     );
   }
 
+  //Return the stage, navigation and progress components.
   useEffect(() => {
     return () => {
       <>
