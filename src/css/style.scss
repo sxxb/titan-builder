@@ -30,12 +30,6 @@ $tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
   @media only screen and (min-width: 768px) {
     width:720px;
   }
-  @media only screen and (min-width: 992px) {
-    width:960px;
-  }
-  @media only screen and (min-width: 1200px) {
-    width:1140px;
-  }
 }
 
 .button-link {
@@ -78,7 +72,8 @@ $tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding:0.25rem;
+    padding:1rem;
+    box-shadow:$box-shadow-1;
       .builder-stage-container {
         width: 100%;
         .builder-title {
@@ -107,7 +102,16 @@ $tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
         }
         .builder-stage {
           .builder-options-container {
+            display:flex;
+            flex-direction:column;
+            align-items:flex-start;
+            justify-content:flex-start;
             height: 400px;
+            @media only screen and (min-width: 768px) {
+              flex-direction: row;
+              align-items:stretch;
+              justify-content: space-between;
+            }
             .builder-option {
               display:flex;
               flex-direction: row;
@@ -115,42 +119,46 @@ $tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
               justify-content: space-between;
               box-shadow: $box-shadow-1;
               transition:0.2s ease;
-              border:2px solid #fff0;
+              border:0.25rem solid #fff0;
               margin:0 auto 1.5rem;
-              @media only screen and (min-width: 576px) {
-                width: 540px;
-                background:red;
-              }
+              width:100%;
               @media only screen and (min-width: 768px) {
-                width:720px;
-                background:blue;
-              }
-              @media only screen and (min-width: 992px) {
-                width:960px;
-                background:green;
-              }
-              @media only screen and (min-width: 1200px) {
-                width:1140px;
+                width:49%;
+                max-width:400px;
+                flex-direction:column;
+                margin:0;
+                justify-content: space-between;
               }
               &:hover {
                 box-shadow: $box-shadow-2;
               }
               .builder-option-image {
-                width:100px;
+                width:150px;
                 img {
-                  width:100px;
-                  height:100px;
+                  width:150px;
+                  height:150px;
+                }
+                @media only screen and (min-width: 768px) {
+                  width:225px;
+                  img {
+                    width:225px;
+                    height:225px;
+                  }
                 }
               }
               .builder-option-description {
                 width:calc(100% - 100px);
                 padding:1rem 0.5rem;
+                @media only screen and (min-width: 768px) {
+                  width:100%;
+                  padding:0.5rem 1.5rem 1rem;
+                }
                 > * {
                   margin:0;
                 }
                 .builder-option-title {
                   font-weight:bold;
-                  font-size:1.4rem;
+                  font-size:1.25rem;
                   margin-bottom:0.5rem;
                 }
                 .builder-option-price {
@@ -172,24 +180,80 @@ $tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
                 }
               }
               &.selected {
-                border:2px solid $wavecom-blue;
+                border:0.25rem solid $wavecom-blue;
               }
             }
           }
           .builder-options-review {
-            height:400px;
+            min-height:400px;
+            .builder-options-review-heading {
+              font-weight:bold;
+              width:100%;
+              font-size:0.8rem;
+              padding:1em;
+              background: var(--bs-gray-300);
+              color: var(--bs-gray-800);
+              background: #dee2e6;
+              color: #343a40;
+              p {
+                margin:0;
+              }
+            }
+            .builder-options-review-item {
+              padding:0 1.5rem;
+              // font-weight: bold;
+              color: var(--bs-dark);
+              color: #212529;
+              display:flex;
+              flex-direction:row;
+              align-items:center;
+              justify-content:space-between;
+              p {
+                sup {
+                  font-size:0.6em;
+                }
+              }
+            }
+            .builder-options-review-total {
+              padding:0 1.5rem;
+              font-size:1.1rem;
+              font-weight: bold;
+              color: var(--bs-dark);
+              color: #212529;
+              display:flex;
+              flex-direction:row;
+              align-items:center;
+              justify-content:space-between;
+              border-top:1px dotted var(--bs-dark);
+              border-top:1px dotted #212529;
+              p {
+                sup {
+                  font-size:0.6em;
+                }
+              }
+            }
           }
           .builder-navigate {
             display:flex;
             width:100%;
             flex-direction:row;
-            margin:1rem 0 1rem;
+            margin:2rem 0 1rem;
             > div {
               width: calc(100% / 3);
               text-align:center;
+              &.builder-navigate-message {
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                padding:0 0.5rem;
+                p {
+                  margin:0;
+                  font-style:italic;
+                }
+              }
               .inactive {
                 color:grey;
-                border:1px solid grey;
+                border:2px solid grey;
                 &:hover {
                   background:none;
                   cursor:not-allowed;
@@ -246,6 +310,7 @@ $tnt-rcd-yellow-light: hsla(48, 100%, 60%, 1);
                     text-align:center;
                     span {
                       font-size:0.8rem;
+                      font-weight:bold;
                     }
                   }
                 }

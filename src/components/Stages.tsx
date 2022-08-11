@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from "react";
 
 import Progress from '../components/Progress';
+
 import tntTitan10AImg from '../img/tntTitan10A.png';
 import tntTitan20AImg from '../img/tntTitan20A.png';
 import winpatsImg from '../img/winpats.png';
@@ -189,49 +190,7 @@ const extrasStageText: StageText = {
   subtitle: "Choose any optional extras for your tester",
 };
 
-// Components to construct the stages
-function BulletPoints({bulletPoints}) {
-  return (
-    <ul className="builder-option-list">
-      {bulletPoints.map(bulletPoint => {
-        return <li key={bulletPoint}>{bulletPoint}</li>;
-      })}
-    </ul>
-  );
-}
 
-function Option({ optionId, name, imgsrc, price, bulletPoints, handleClick, optionSelected }) {
-  let className = "builder-option";
-  if (optionSelected) {
-    className += ' selected'
-  }
-  return(
-    <div className={className} onClick={handleClick}>
-      <div className="builder-option-image">
-        <img src={imgsrc} alt={name} />
-      </div>
-      <div className="builder-option-description">
-        <p className="builder-option-title">{name}</p>
-        <p className="builder-option-price">${price}<sup>+GST</sup></p>
-        <BulletPoints bulletPoints={bulletPoints} />
-      </div>
-    </div>
-  );
-}
-
-function Stage({ headerTitle, headerSubtitle, stageName, children }) {
-  return(
-    <div  className="builder-stage-container">
-      <div className="builder-title">
-        <h3>{headerTitle}</h3>
-        <p>{headerSubtitle}</p>
-      </div>
-      <div id={stageName} className="builder-stage">
-        {children}
-      </div>
-    </div>
-  );
-};
 
 //Determine which stage to display
 function Stages() {
@@ -250,6 +209,163 @@ function Stages() {
   const [testAccSelected, setTestAccSelected] = useState('unset');
   const [basicTagsSelected, setBasicTagsSelected] = useState('unset');
   const [proTagsSelected, setProTagsSelected] = useState('unset');
+
+  // Components to construct the stages
+  function BulletPoints({bulletPoints}) {
+    return (
+      <ul className="builder-option-list">
+        {bulletPoints.map(bulletPoint => {
+          return <li key={bulletPoint}>{bulletPoint}</li>;
+        })}
+      </ul>
+    );
+  }
+  function Option({ optionId, name, imgsrc, price, bulletPoints, handleClick, optionSelected }) {
+    let className = "builder-option";
+    if (optionSelected) {
+      className += ' selected'
+    }
+    return(
+      <div className={className} onClick={handleClick}>
+        <div className="builder-option-image">
+          <img src={imgsrc} alt={name} />
+        </div>
+        <div className="builder-option-description">
+          <p className="builder-option-title">{name}</p>
+          <p className="builder-option-price">${price}<sup>+GST</sup></p>
+          <BulletPoints bulletPoints={bulletPoints} />
+        </div>
+      </div>
+    );
+  }
+  function Stage({ headerTitle, headerSubtitle, stageName, children }) {
+    return(
+      <div  className="builder-stage-container">
+        <div className="builder-title">
+          <h3>{headerTitle}</h3>
+          <p>{headerSubtitle}</p>
+        </div>
+        <div id={stageName} className="builder-stage">
+          {children}
+        </div>
+      </div>
+    );
+  };
+  function Summary() {
+    function SummaryLineItem(props) {
+      if (props.item !== "unset") {
+        return (
+          <div className="builder-options-review-item">
+            <p>{props.object.name}</p>
+            <p>${props.object.price}<sup>+GST</sup></p>
+          </div>
+        )
+      }
+    };
+    function SummarySection(props) {
+      if (props.sectionTitle === "Tester") {
+        if (props.tester === "The TnT Titan 10A") {
+          return (
+            <>
+              <div className="builder-options-review-heading">
+                <p>{props.sectionTitle}</p>
+              </div>
+              <SummaryLineItem item={props.tester} object={tntTitan10A}/>
+            </>
+          );
+        } else {
+          return (
+            <>
+              <div className="builder-options-review-heading">
+                <p>{props.sectionTitle}</p>
+              </div>
+              <SummaryLineItem item={props.tester} object={tntTitan20A}/>
+            </>
+          );
+        }
+      } else if (props.sectionTitle === "Software") {
+          if (props.winpats === 'unset' && props.tablet === 'unset' ) {}
+          else {
+            return(
+              <>
+                <div className="builder-options-review-heading">
+                  <p>{props.sectionTitle}</p>
+                </div>
+                <SummaryLineItem item={props.winpats} object={winpats}/>
+                <SummaryLineItem item={props.tablet} object={tablet}/>
+              </>
+            );
+          }
+      } else if (props.sectionTitle === "Print Kit") {
+        if (props.printKit === 'unset') {}
+        else {
+          return(
+            <>
+              <div className="builder-options-review-heading">
+                <p>{props.sectionTitle}</p>
+              </div>
+              <SummaryLineItem item={props.printKit} object={printKit}/>
+            </>
+          );
+        }
+      } else if (props.sectionTitle === "Extras") {
+          if (
+            props.testAcc === 'unset' &&
+            props.basicTags === 'unset' &&
+            props.proTags === 'unset') {}
+          else {
+            return(
+              <>
+                <div className="builder-options-review-heading">
+                  <p>{props.sectionTitle}</p>
+                </div>
+                <SummaryLineItem item={props.testAcc}   object={testAcc}/>
+                <SummaryLineItem item={props.basicTags} object={basicTags}/>
+                <SummaryLineItem item={props.proTags}   object={proTags}/>
+              </>
+            );
+          }
+      }
+    };
+    function SummaryTotal(props) {
+      function priceCheck(property, total, item) {
+        if (property !== 'unset') {
+          let total = item.price;
+        } else {
+          let total = 0;
+        }
+      };
+      function OrderTotal() {
+        let orderTotal =
+          (testerSelected === "The TnT Titan 10A" ? tntTitan10A.price : tntTitan20A.price) +
+          (winpatsSelected !== "unset"  ? winpats.price : 0) +
+          (tabletSelected !== "unset"  ? tablet.price : 0) +
+          (printKitSelected !== "unset"  ? printKit.price : 0) +
+          (testAccSelected !== "unset"  ? testAcc.price : 0) +
+          (basicTagsSelected !== "unset"  ? basicTags.price : 0) +
+          (proTagsSelected !== "unset"  ? proTags.price : 0);
+        return (
+          <div className="builder-options-review-total">
+            <p>Total</p>
+            <p>${orderTotal}<sup>+GST</sup></p>
+          </div>
+        );
+      }
+
+      return(
+        <OrderTotal />
+      );
+    }
+    return (
+      <div className="builder-options-review">
+        <SummarySection sectionTitle="Tester" tester={testerSelected} />
+        <SummarySection sectionTitle="Software" winpats={winpatsSelected} tablet={tabletSelected}/>
+        <SummarySection sectionTitle="Print Kit" printKit={printKitSelected}/>
+        <SummarySection sectionTitle="Extras" testAcc={testAccSelected} basicTags={basicTagsSelected} proTags={proTagsSelected}/>
+        <SummaryTotal tester={testerSelected} winpats={winpatsSelected} tablet={tabletSelected} printKit={printKitSelected} testAcc={testAccSelected} basicTags={basicTagsSelected} proTags={proTagsSelected}/>
+      </div>
+    )
+  }
 
   //Set which stage to display based on 'stage' counter - see the hook above.
   function CheckStage() {
@@ -389,21 +505,7 @@ function Stages() {
           headerTitle={"Review your order"}
           headerSubtitle={"When you are satisfied with your order, click submit to add your selections to your cart. You can then proceed to checkout, or continue shopping."}
         >
-
-        <div className="builder-options-review">
-          <p>
-            <strong>Tester:</strong> {testerSelected}
-          </p>
-          <p>
-            <strong>Software:</strong> {winpatsSelected}, {tabletSelected}
-          </p>
-          <p>
-            <strong>Print Kit:</strong> {printKitSelected}
-          </p>
-          <p>
-            <strong>Accessories:</strong> {testAccSelected}, {basicTagsSelected},{proTagsSelected}
-          </p>
-        </div>
+          <Summary />
          <Navigation />
          <Progress stage={stage}/>
         </Stage>
@@ -434,6 +536,13 @@ function Stages() {
       );
     }
   }
+  function MessageHandler() {
+    if (testerSelected === 'unset') {
+        return(
+          <p> Please select a tester to proceed</p>
+        );
+      }
+  }
   function GoForwardHandler() {
     if (stage === 0 ) {
       if (testerSelected !== 'unset') {
@@ -447,15 +556,12 @@ function Stages() {
         );
       } else {
         return(
-          <>
-            <p> Please select a tester</p>
             <button
               className="button-link inactive"
               inactive="true"
             >
               Next
             </button>
-          </>
         );
       }
     }
@@ -490,13 +596,26 @@ function Stages() {
     );
     }
     else if (stage === 4) {
+      function handleSubmit() {
+        let sendToCart =
+          "https://www.wavecom.com.au/order_process_01_cart_view.php?" +
+          (testerSelected === "The TnT Titan 10A" ? "id_product=1320&cart_action=add" : "id_product=1321&cart_action=add") +
+          (winpatsSelected    !== "unset"  ? "&id_product=1306&cart_action=add" : "") +
+          (tabletSelected     !== "unset"  ? "&id_product=1357&cart_action=add" : "") +
+          (printKitSelected   !== "unset"  ? "&id_product=1355&cart_action=add" : "") +
+          (testAccSelected    !== "unset"  ? "&id_product=63&cart_action=add" : "") +
+          (basicTagsSelected  !== "unset"  ? "&id_product=1068&cart_action=add" : "") +
+          (proTagsSelected    !== "unset"  ? "&id_product=1076&cart_action=add" : "");
+          return (sendToCart);
+      }
+      console.log(handleSubmit())
       return(
-        <button
+        <a
           className="button-link"
-          onClick={() => console.log("Submit")}
+          href={() => handleSubmit()}
         >
           Submit
-        </button>
+        </a>
       );
     }
     else {
@@ -511,7 +630,8 @@ function Stages() {
         <div className="builder-navigate-backward">
           <GoBackHandler />
         </div>
-        <div>
+        <div className="builder-navigate-message">
+          <MessageHandler />
         </div>
         <div className="builder-navigate-forward">
           <GoForwardHandler />
